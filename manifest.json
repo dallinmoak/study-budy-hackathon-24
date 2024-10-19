@@ -15,6 +15,12 @@
       "js": ["content.js"],
       "run_at": "document_idle",
       "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["inject-buddy.js"],
+      "run_at": "document_idle",
+      "world": "MAIN"
     }
   ],
   "permissions": ["activeTab", "pageCapture", "scripting", "storage"],

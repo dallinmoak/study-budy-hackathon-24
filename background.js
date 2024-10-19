@@ -1,18 +1,18 @@
 // background.js
-let todo =
-chrome.action.onClicked.addListener((tabId, changeInfo, tab) => {
+let todo = chrome.action.onClicked.addListener((tabId, changeInfo, tab) => {
   if (tab) {
-    if (
-      changeInfo.status === "complete" &&
-      tab.url &&
-      tab.url.includes("instructure")
-    ) {
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: tabId },
-          files: ["content.js"],
-        }
-      );
+    if (changeInfo.status === "complete" && tab.url) {
+      console.log("now executing script");
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ["inject-buddy.js"],
+      });
+    }
+    if (tab.url.includes("instructure")) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: ["content.js"],
+      });
     }
   }
 });
@@ -22,18 +22,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "LINKS") {
     chrome.storage.local.set({ list: message.list });
   }
-  
+
   return true;
 });
 
-
 function getData(key) {
   chrome.storage.local.get([key], (result) => {
-    if (result.key){
-      return result.key
-    }else{
-      return 'No Saved Data'
+    if (result.key) {
+      return result.key;
+    } else {
+      return "No Saved Data";
     }
   });
 }
-
