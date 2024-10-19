@@ -23,17 +23,20 @@ const newManifest = {
   content_scripts: [
     {
       matches: ["<all_urls>"],
-      js: ["test.js"],
+      js: ["content-script.js"],
     },
   ],
-  permissions: ["activeTab"],
+  permissions: ["activeTab", "scripting"],
   host_permissions: ["<all_urls>"],
+  background: {
+    service_worker: "test.js",
+  },
 };
 
-// for (const key in viteManifest) {
-//   if (viteManifest[key].isEntry && viteManifest[key].file.includes("index")) {
-//     newManifest.content_scripts[0].js.push(viteManifest[key].file);
-//   }
-// }
+for (const key in viteManifest) {
+  if (viteManifest[key].isEntry && viteManifest[key].file.includes("index")) {
+    newManifest.content_scripts[0].js.push(viteManifest[key].file);
+  }
+}
 
 writeFileSync(newManifestPath, JSON.stringify(newManifest, null, 2));
