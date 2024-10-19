@@ -31,12 +31,15 @@ const newManifest = {
   background: {
     service_worker: "test.js",
   },
+  content_security_policy: {
+    extension_pages: "script-src 'self'; object-src 'self'; frame-src 'self';",
+  },
 };
 
-for (const key in viteManifest) {
-  if (viteManifest[key].isEntry && viteManifest[key].file.includes("index")) {
-    newManifest.content_scripts[0].js.push(viteManifest[key].file);
-  }
-}
+// for (const key in viteManifest) {
+//   if (viteManifest[key].isEntry && viteManifest[key].file.includes("index")) {
+//     newManifest.content_scripts[0].js.push(viteManifest[key].file);
+//   }
+// }
 
 writeFileSync(newManifestPath, JSON.stringify(newManifest, null, 2));
