@@ -4,6 +4,19 @@ console.log(body);
 
 console.log('Dom Loaded');
 setTimeout(() => {
+  past_button = document.getElementById("new_activity_button");
+  future_button = document.querySelector(".css-s72gxh-view-link");
+  scrape();
+  past_button.click();
+  setTimeout(() => {
+  future_button.click();
+  },4000);
+  setTimeout(() => {
+    scrape();
+  },8000);
+}, 4000);
+
+function scrape(){
   console.log('dom loaded .5 seconds ago')
   let alinks = document.querySelectorAll(".Grouping-styles__items");
 
@@ -28,8 +41,7 @@ setTimeout(() => {
   // console.log(assignment_title);
 
 //  chrome.runtime.sendMessage({ type: "LINKS", list: alinks});
-}, 3000);
-
+}
 
 //Takes in node array, returns string array
 function getTextFromNodes(nodeList){
