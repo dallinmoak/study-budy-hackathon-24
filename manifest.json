@@ -17,6 +17,6 @@
       "world": "MAIN"
     }
   ],
-  "permissions": ["activeTab", "pageCapture", "scripting"],
+  "permissions": ["activeTab", "pageCapture", "scripting", "storage"],
   "host_permissions": ["<all_urls>"]
 }
