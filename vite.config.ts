@@ -6,16 +6,12 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [react()],
   build: {
+    manifest: true,
     rollupOptions: {
       input: {
         index: resolve(__dirname, "index.html"),
         popup: resolve(__dirname, "src/popup.html"),
       },
-      // output: {
-      //   entryFileNames: "[name].html",
-      //   assetFileNames: "[name].[hash].[ext]",
-      //   chunkFileNames: "[name].[hash].js",
-      // },
     },
   },
 });
