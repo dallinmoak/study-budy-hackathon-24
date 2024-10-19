@@ -1,5 +1,5 @@
 // background.js
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+chrome.action.onClicked.addListener((tabId, changeInfo, tab) => {
   // Check if the tab is fully loaded and the URL matches
   if (tab) {
     if (
@@ -12,11 +12,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         {
           target: { tabId: tabId },
           files: ["content.js"], // Path to your content script
-        },
-        () => {
-          if (chrome.runtime.lastError) {
-            console.error(chrome.runtime.lastError);
-          }
         }
       );
     }
