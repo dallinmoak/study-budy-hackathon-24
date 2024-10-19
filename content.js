@@ -1,46 +1,66 @@
 let body = document.querySelector('body');
-console.log(body);
-
-
 console.log('Dom Loaded');
 setTimeout(() => {
   past_button = document.getElementById("new_activity_button");
   future_button = document.querySelector(".css-s72gxh-view-link");
-  scrape();
-  past_button.click();
-  setTimeout(() => {
+
+  let feuture_only_scrape = scrape();
+  let past_scrape = {};
   future_button.click();
-  },4000);
+  
   setTimeout(() => {
-    scrape();
-  },8000);
-}, 4000);
+    past_button.click();
+  },3500);
+
+  setTimeout(() => {
+    past_scrape = scrape();
+    console.log(feuture_only_scrape);
+    
+    
+  },6000);
+
+  setTimeout(() => {
+    console.log(past_scrape);
+    console.log(findLate(feuture_only_scrape, past_scrape));
+  },7500);
+
+  
+}, 2500);
+
+//Returns Integer of late assignments.
+function findLate(feuture_only_scrape, past_scrape){
+  let num_missing = 0;
+  if(past_scrape.length == feuture_only_scrape.length){
+    return -1;
+  }
+  else{
+    let done = false;
+    while (done == false && num_missing <=past_scrape.length) {
+      done = past_scrape[num_missing].name == feuture_only_scrape[0].name;
+      
+      if(done){
+        //decrement when found
+        num_missing--;
+      }
+      num_missing++;
+      }
+  }
+  return num_missing;
+}
 
 function scrape(){
-  console.log('dom loaded .5 seconds ago')
-  let alinks = document.querySelectorAll(".Grouping-styles__items");
+  // let date = document.querySelector(".Day-styles__secondary");
+  // date = getTextFromNodes(date);
 
-  let date = document.querySelector(".Day-styles__secondary");
-  date = getTextFromNodes(date);
-
-  let class_name = document.querySelectorAll(".Grouping-styles__title");
-  class_name = getTextFromNodes(class_name);
+  // let class_name = document.querySelectorAll(".Grouping-styles__title");
+  // class_name = getTextFromNodes(class_name);
 
   let assignment_title = document.querySelectorAll(".Grouping-styles__items a:nth-child(2)");
   assignment_title = getTextFromNodes(assignment_title);
 
   let assignments = buildAssignmentJSON(assignment_title);
 
-  console.log(assignments);
-
-
-  // console.log("test");
-  // console.log(alinks);  
-  // console.log(date);
-  // console.log(class_name);
-  // console.log(assignment_title);
-
-//  chrome.runtime.sendMessage({ type: "LINKS", list: alinks});
+  return assignments
 }
 
 //Takes in node array, returns string array
