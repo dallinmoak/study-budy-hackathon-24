@@ -10,7 +10,7 @@ style.textContent = `
     scrollbar-width: none;
     -ms-overflow-style: none;
     width: 211px;
-    height: 231px;
+    height: 400px;
     border: none;
     overflow: hidden;
     right: 0;
